@@ -1,9 +1,7 @@
 part of '../page.dart';
 
 class _PomoButton extends StatelessWidget {
-  const _PomoButton({
-    super.key,
-  });
+  const _PomoButton();
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +10,20 @@ class _PomoButton extends StatelessWidget {
       children: [
         _BuildButton(
           icon: Icons.more_horiz_rounded,
-          bgColor: Colors.red.withOpacity(.1),
+          bgColor: Colors.red.withOpacity(.2),
           onTap: () {},
         ),
         const SizedBox(width: 20),
         _BuildButton(
           isBig: true,
           icon: Icons.play_arrow_rounded,
-          bgColor: Colors.red.withOpacity(.3),
+          bgColor: Colors.red.withOpacity(.5),
           onTap: () {},
         ),
         const SizedBox(width: 20),
         _BuildButton(
           icon: Icons.fast_forward_rounded,
-          bgColor: Colors.red.withOpacity(.1),
+          bgColor: Colors.red.withOpacity(.2),
           onTap: () {},
         ),
       ],
