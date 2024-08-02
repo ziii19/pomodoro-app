@@ -1,9 +1,7 @@
 part of '../page.dart';
 
 class _PomoMode extends StatelessWidget {
-  const _PomoMode({
-    super.key,
-  });
+  const _PomoMode();
 
   @override
   Widget build(BuildContext context) {

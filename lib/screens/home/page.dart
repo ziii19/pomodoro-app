@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/widgets.dart';
+
 part 'section.dart/button.dart';
 part 'section.dart/time.dart';
 part 'section.dart/mode.dart';
+part 'section.dart/settings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.red.shade50,
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

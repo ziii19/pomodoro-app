@@ -1,27 +1,36 @@
 part of '../page.dart';
 
-class _PomoButton extends StatelessWidget {
+class _PomoButton extends StatefulWidget {
   const _PomoButton();
+
+  @override
+  State<_PomoButton> createState() => _PomoButtonState();
+}
+
+class _PomoButtonState extends State<_PomoButton> {
+  bool isDark = false;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _BuildButton(
+        ButtonTime(
           icon: Icons.more_horiz_rounded,
           bgColor: Colors.red.withOpacity(.2),
-          onTap: () {},
+          onTap: () {
+            openSetting();
+          },
         ),
         const SizedBox(width: 20),
-        _BuildButton(
+        ButtonTime(
           isBig: true,
           icon: Icons.play_arrow_rounded,
           bgColor: Colors.red.withOpacity(.5),
           onTap: () {},
         ),
         const SizedBox(width: 20),
-        _BuildButton(
+        ButtonTime(
           icon: Icons.fast_forward_rounded,
           bgColor: Colors.red.withOpacity(.2),
           onTap: () {},
@@ -29,38 +38,9 @@ class _PomoButton extends StatelessWidget {
       ],
     );
   }
-}
 
-class _BuildButton extends StatelessWidget {
-  const _BuildButton(
-      {required this.icon,
-      required this.bgColor,
-      this.onTap,
-      this.isBig = false});
-
-  final IconData icon;
-  final Color bgColor;
-  final void Function()? onTap;
-  final bool isBig;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: isBig ? 130 : 80,
-        height: isBig ? 100 : 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: bgColor,
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            size: isBig ? 50 : 30,
-          ),
-        ),
-      ),
-    );
+  void openSetting() {
+    showDialog(context: context, builder: (context) => const SettingsMenu());
   }
 }
+
