@@ -34,11 +34,15 @@ class _SettingsMenuState extends State<SettingsMenu> {
                 ],
               ),
               const SizedBox(height: 10),
-              SwitchTile(
-                title: 'Dark mode',
-                initialValue: false,
-                onChanged: (value) {
-                  // Logic to change theme
+              BlocBuilder<ThemeBloc, bool>(
+                builder: (context, isDark) {
+                  return SwitchTile(
+                    title: 'Dark mode',
+                    initialValue: isDark,
+                    onChanged: (value) {
+                      context.read<ThemeBloc>().add(SaveTheme(isDark: value));
+                    },
+                  );
                 },
               ),
               CustomNumberInputTile(

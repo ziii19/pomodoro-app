@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro/blocs/theme/theme_bloc.dart';
 import 'package:pomodoro/screens/home/page.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
   @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.system,
-        debugShowCheckedModeBanner: false,
-        home: const HomeScreen());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeBloc()..add(GetTheme())),
+      ],
+      child: BlocBuilder<ThemeBloc, bool>(
+        builder: (context, isDark) {
+          ThemeData theme() {
+            if (isDark) {
+              return ThemeData.dark(useMaterial3: true);
+            } else {
+              return ThemeData.light(useMaterial3: true);
+            }
+          }
+
+          return MaterialApp(
+              theme: theme(),
+              debugShowCheckedModeBanner: false,
+              home: const HomeScreen());
+        },
+      ),
+    );
   }
 }
