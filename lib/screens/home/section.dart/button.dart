@@ -23,11 +23,19 @@ class _PomoButtonState extends State<_PomoButton> {
           },
         ),
         const SizedBox(width: 20),
-        ButtonTime(
-          isBig: true,
-          icon: Icons.play_arrow_rounded,
-          bgColor: Colors.red.withOpacity(.5),
-          onTap: () {},
+        BlocBuilder<PomotimerBloc, PomotimerState>(
+          builder: (context, state) {
+            return ButtonTime(
+              isBig: true,
+              icon: Icons.play_arrow_rounded,
+              bgColor: Colors.red.withOpacity(.5),
+              onTap: () {
+                context
+                    .read<PomotimerBloc>()
+                    .add(StartTimer(time: state.focusTime));
+              },
+            );
+          },
         ),
         const SizedBox(width: 20),
         ButtonTime(
