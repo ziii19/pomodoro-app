@@ -14,7 +14,7 @@ class _PomoButtonState extends State<_PomoButton> {
   Widget build(BuildContext context) {
     return BlocBuilder<PomotimerBloc, PomotimerState>(
       builder: (context, state) {
-        void timerEvent() {
+        void timerEvent() async {
           if (state.status == Status.initial || state.status == Status.paused) {
             if (state.mode == PomoMode.focus) {
               context
@@ -29,6 +29,7 @@ class _PomoButtonState extends State<_PomoButton> {
                   .read<PomotimerBloc>()
                   .add(StartTimer(time: state.longBreakTime));
             }
+            await AudioPlayer().play(AssetSource('sounds/start.m4a'));
           } else if (state.status == Status.completed) {
             context.read<PomotimerBloc>().add(ResetTimer());
           } else {

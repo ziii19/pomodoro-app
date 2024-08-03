@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,17 +15,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _PomoMode(),
-            SizedBox(height: 30),
-            _PomoTime(),
-            SizedBox(height: 30),
-            _PomoButton()
-          ],
+    final player = AudioPlayer();
+
+    return BlocListener<PomotimerBloc, PomotimerState>(
+      listener: (context, state) async {
+        if (state.status == Status.completed) {
+          await player.play(AssetSource('sounds/end.m4a'));
+        }
+      },
+      child: const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _PomoMode(),
+              SizedBox(height: 30),
+              _PomoTime(),
+              SizedBox(height: 30),
+              _PomoButton()
+            ],
+          ),
         ),
       ),
     );
