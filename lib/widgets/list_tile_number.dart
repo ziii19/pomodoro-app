@@ -93,23 +93,17 @@ class CustomNumberInputTileState extends State<CustomNumberInputTile> {
                       Border(left: BorderSide(width: 1, color: Colors.grey))),
               child: Column(
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_drop_up, size: 18),
-                    onPressed: _increment,
-                    padding: const EdgeInsets.all(0),
-                    constraints: const BoxConstraints(),
-                  ),
+                  GestureDetector(
+                      onTap: _increment,
+                      child: const Icon(Icons.arrow_drop_up, size: 18)),
                   Container(
                     width: double.infinity,
                     height: 1,
                     color: Colors.grey,
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.arrow_drop_down, size: 18),
-                    onPressed: _decrement,
-                    padding: const EdgeInsets.all(0),
-                    constraints: const BoxConstraints(),
-                  ),
+                  GestureDetector(
+                      onTap: _decrement,
+                      child: const Icon(Icons.arrow_drop_down, size: 18)),
                 ],
               ),
             ),

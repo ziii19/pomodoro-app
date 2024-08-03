@@ -22,5 +22,10 @@ class PomotimerBloc extends Bloc<PomotimerEvent, PomotimerState> {
         emit(state.copywith(status: Status.completed, focusTime: 0));
       }
     });
+
+    on<PausedTimer>((event, emit) {
+      setTimer.cancelTimer();
+      emit(state.copywith(status: Status.paused));
+    });
   }
 }

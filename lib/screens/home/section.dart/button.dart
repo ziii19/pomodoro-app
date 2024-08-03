@@ -27,12 +27,20 @@ class _PomoButtonState extends State<_PomoButton> {
           builder: (context, state) {
             return ButtonTime(
               isBig: true,
-              icon: Icons.play_arrow_rounded,
+              icon: state.status == Status.initial ||
+                      state.status == Status.paused
+                  ? Icons.play_arrow_rounded
+                  : Icons.pause_rounded,
               bgColor: Colors.red.withOpacity(.5),
               onTap: () {
-                context
-                    .read<PomotimerBloc>()
-                    .add(StartTimer(time: state.focusTime));
+                if (state.status == Status.initial ||
+                    state.status == Status.paused) {
+                  context
+                      .read<PomotimerBloc>()
+                      .add(StartTimer(time: state.focusTime));
+                } else {
+                  context.read<PomotimerBloc>().add(PausedTimer());
+                }
               },
             );
           },
@@ -51,4 +59,3 @@ class _PomoButtonState extends State<_PomoButton> {
     showDialog(context: context, builder: (context) => const SettingsMenu());
   }
 }
-

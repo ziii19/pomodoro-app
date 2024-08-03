@@ -12,3 +12,5 @@ class StartTimer extends PomotimerEvent {
 
   const StartTimer({required this.time});
 }
+
+class PausedTimer extends PomotimerEvent {}

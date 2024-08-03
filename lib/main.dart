@@ -23,6 +23,7 @@ class _MainAppState extends State<MainApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeBloc()..add(GetTheme())),
+        BlocProvider(create: (context) => PomotimerBloc()),
       ],
       child: BlocBuilder<ThemeBloc, bool>(
         builder: (context, isDark) {
