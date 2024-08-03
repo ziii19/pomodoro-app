@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodoro/blocs/theme/theme_bloc.dart';
+import 'package:pomodoro/blocs/blocs.dart';
 import 'package:pomodoro/screens/home/page.dart';
 
+import 'widgets/widgets.dart';
+
 void main() {
+  Bloc.observer = AppBlockObserver();
   runApp(const MainApp());
 }
 
