@@ -18,3 +18,13 @@ class PausedTimer extends PomotimerEvent {}
 class ChangeMode extends PomotimerEvent {}
 
 class ResetTimer extends PomotimerEvent {}
+
+class UpdateTime extends PomotimerEvent {
+  final int? focusTime;
+  final int? shortBreakTime;
+  final int? longBreakTime;
+
+  const UpdateTime({this.focusTime, this.shortBreakTime, this.longBreakTime});
+  @override
+  List<Object?> get props => [focusTime, shortBreakTime, longBreakTime];
+}

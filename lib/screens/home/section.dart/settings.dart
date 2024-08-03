@@ -18,75 +18,96 @@ class _SettingsMenuState extends State<SettingsMenu> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: BlocBuilder<PomotimerBloc, PomotimerState>(
+            builder: (context, state) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    'Setting',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Setting',
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(Icons.close_rounded))
+                    ],
                   ),
-                  GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.close_rounded))
-                ],
-              ),
-              const SizedBox(height: 10),
-              BlocBuilder<ThemeBloc, bool>(
-                builder: (context, isDark) {
-                  return SwitchTile(
-                    title: 'Dark mode',
-                    initialValue: isDark,
-                    onChanged: (value) {
-                      context.read<ThemeBloc>().add(SaveTheme(isDark: value));
+                  const SizedBox(height: 10),
+                  BlocBuilder<ThemeBloc, bool>(
+                    builder: (context, isDark) {
+                      return SwitchTile(
+                        title: 'Dark mode',
+                        initialValue: isDark,
+                        onChanged: (value) {
+                          context
+                              .read<ThemeBloc>()
+                              .add(SaveTheme(isDark: value));
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-              CustomNumberInputTile(
-                title: 'Focus length',
-                initialValue: 25,
-                minValue: 10,
-                maxValue: 60,
-                onChanged: (value) {
-                  // Logic to change focus length
-                },
-              ),
-              CustomNumberInputTile(
-                title: 'Short break length',
-                initialValue: 5,
-                minValue: 1,
-                maxValue: 15,
-                onChanged: (value) {
-                  // Logic to change short break length
-                },
-              ),
-              CustomNumberInputTile(
-                title: 'Long break length',
-                initialValue: 15,
-                minValue: 10,
-                maxValue: 30,
-                onChanged: (value) {
-                  // Logic to change long break length
-                },
-              ),
-              SwitchTile(
-                title: 'Sound',
-                initialValue: false,
-                onChanged: (value) {
-                  // Logic to change sound setting
-                },
-              ),
-              SwitchTile(
-                title: 'Notifications',
-                initialValue: false,
-                onChanged: (value) {
-                  // Logic to change notifications setting
-                },
-              ),
-            ],
+                  ),
+                  CustomNumberInputTile(
+                    title: 'Focus length',
+                    initialValue:
+                        state.focusTime != 0 ? state.focusTime ~/ 60 : 25,
+                    minValue: 10,
+                    maxValue: 60,
+                    onChanged: (value) {
+                      // Logic to change focus length
+                      context
+                          .read<PomotimerBloc>()
+                          .add(UpdateTime(focusTime: value * 60));
+                    },
+                  ),
+                  CustomNumberInputTile(
+                    title: 'Short break length',
+                    initialValue: state.shortBreakTime != 0
+                        ? state.shortBreakTime ~/ 60
+                        : 5,
+                    minValue: 1,
+                    maxValue: 15,
+                    onChanged: (value) {
+                      // Logic to change short break length
+                      context
+                          .read<PomotimerBloc>()
+                          .add(UpdateTime(shortBreakTime: value * 60));
+                    },
+                  ),
+                  CustomNumberInputTile(
+                    title: 'Long break length',
+                    initialValue: state.longBreakTime != 0
+                        ? state.longBreakTime ~/ 60
+                        : 15,
+                    minValue: 10,
+                    maxValue: 30,
+                    onChanged: (value) {
+                      // Logic to change long break length
+                      context
+                          .read<PomotimerBloc>()
+                          .add(UpdateTime(longBreakTime: value * 60));
+                    },
+                  ),
+                  SwitchTile(
+                    title: 'Sound',
+                    initialValue: false,
+                    onChanged: (value) {
+                      // Logic to change sound setting
+                    },
+                  ),
+                  SwitchTile(
+                    title: 'Notifications',
+                    initialValue: false,
+                    onChanged: (value) {
+                      // Logic to change notifications setting
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

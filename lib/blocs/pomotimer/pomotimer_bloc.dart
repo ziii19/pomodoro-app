@@ -58,5 +58,13 @@ class PomotimerBloc extends Bloc<PomotimerEvent, PomotimerState> {
     on<ResetTimer>((event, emit) {
       emit(PomotimerState.initial());
     });
+
+    on<UpdateTime>((event, emit) {
+      emit(state.copywith(
+        focusTime: event.focusTime,
+        shortBreakTime: event.shortBreakTime,
+        longBreakTime: event.longBreakTime,
+      ));
+    });
   }
 }
