@@ -5,19 +5,43 @@ class _PomoMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(99),
-        color: Colors.red.withOpacity(.1),
-      ),
-      child: const Center(
-        child: Text(
-          'Focus',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-        ),
-      ),
+    return BlocBuilder<PomotimerBloc, PomotimerState>(
+      builder: (context, state) {
+        String titleMode() {
+          if (state.mode == PomoMode.focus) {
+            return 'Focus Mode';
+          } else if (state.mode == PomoMode.longBreak) {
+            return 'Long Break';
+          } else {
+            return 'Short Break';
+          }
+        }
+
+        Color colorMode() {
+          if (state.mode == PomoMode.focus) {
+            return Colors.red.withOpacity(.2);
+          } else if (state.mode == PomoMode.longBreak) {
+            return Colors.blue.withOpacity(.2);
+          } else {
+            return Colors.green.withOpacity(.2);
+          }
+        }
+
+        return Container(
+          width: MediaQuery.of(context).size.width / 1 / 2,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(99),
+              color: colorMode(),
+              border: Border.all(color: Colors.grey, width: 2)),
+          child: Center(
+            child: Text(
+              titleMode(),
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+            ),
+          ),
+        );
+      },
     );
   }
 }

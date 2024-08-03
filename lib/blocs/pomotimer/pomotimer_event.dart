@@ -14,3 +14,7 @@ class StartTimer extends PomotimerEvent {
 }
 
 class PausedTimer extends PomotimerEvent {}
+
+class ChangeMode extends PomotimerEvent {}
+
+class ResetTimer extends PomotimerEvent {}

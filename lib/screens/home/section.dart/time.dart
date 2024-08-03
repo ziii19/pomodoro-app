@@ -13,8 +13,18 @@ class _PomoTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PomotimerBloc, PomotimerState>(
       builder: (context, state) {
+        String time() {
+          if (state.mode == PomoMode.focus) {
+            return timeFormat(state.focusTime);
+          } else if (state.mode == PomoMode.shortBreak) {
+            return timeFormat(state.shortBreakTime);
+          } else {
+            return timeFormat(state.longBreakTime);
+          }
+        }
+
         return Text(
-          timeFormat(state.focusTime),
+          time(),
           style: const TextStyle(
               fontWeight: FontWeight.w800, fontSize: 250, height: .9),
         );

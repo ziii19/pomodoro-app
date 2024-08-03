@@ -8,9 +8,9 @@ class PomotimerState extends Equatable {
   const PomotimerState({
     this.status = Status.initial,
     this.mode = PomoMode.focus,
-    this.focusTime = 10,
-    this.shortBreakTime = 5,
-    this.longBreakTime = 15,
+    this.focusTime = 1500,
+    this.shortBreakTime = 300,
+    this.longBreakTime = 900,
   });
 
   final Status status;
