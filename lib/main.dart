@@ -36,10 +36,39 @@ class _MainAppState extends State<MainApp> {
             }
           }
 
-          return MaterialApp(
-              theme: theme(),
-              debugShowCheckedModeBanner: false,
-              home: const HomeScreen());
+          return BlocBuilder<PomotimerBloc, PomotimerState>(
+            builder: (context, state) {
+              String timeFormat(int seconds) {
+                final minute = seconds ~/ 60;
+                final remainingSeconds = seconds % 60;
+                return '${minute.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+              }
+
+              String time() {
+                if (state.mode == PomoMode.focus) {
+                  return 'Focus - ${timeFormat(state.focusTime)}';
+                } else if (state.mode == PomoMode.shortBreak) {
+                  return 'Short Break - ${timeFormat(state.shortBreakTime)}';
+                } else {
+                  return 'Long Break - ${timeFormat(state.longBreakTime)}';
+                }
+              }
+
+              String title() {
+                if (state.status == Status.running) {
+                  return time();
+                } else {
+                  return 'Pomodoro';
+                }
+              }
+
+              return MaterialApp(
+                  title: title(),
+                  theme: theme(),
+                  debugShowCheckedModeBanner: false,
+                  home: const HomeScreen());
+            },
+          );
         },
       ),
     );

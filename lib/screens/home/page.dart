@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unicons/unicons.dart';
 
 import '../../blocs/blocs.dart';
 import '../../widgets/widgets.dart';
