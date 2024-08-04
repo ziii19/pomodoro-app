@@ -23,19 +23,28 @@ class HomeScreen extends StatelessWidget {
           await player.play(AssetSource('sounds/end.m4a'));
         }
       },
-      child: const Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _PomoMode(),
-              SizedBox(height: 30),
-              _PomoTime(),
-              SizedBox(height: 30),
-              _PomoButton()
-            ],
-          ),
-        ),
+      child: BlocBuilder<ThemeBloc, bool>(
+        builder: (context, isDark) {
+          return BlocBuilder<PomotimerBloc, PomotimerState>(
+            builder: (context, state) {
+              return Scaffold(
+                backgroundColor: isDark ? state.darkBg : state.lightBg,
+                body: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _PomoMode(),
+                      SizedBox(height: 30),
+                      _PomoTime(),
+                      SizedBox(height: 30),
+                      _PomoButton()
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
       ),
     );
   }

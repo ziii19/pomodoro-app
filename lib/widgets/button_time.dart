@@ -6,10 +6,12 @@ class ButtonTime extends StatelessWidget {
       required this.icon,
       required this.bgColor,
       this.onTap,
-      this.isBig = false});
+      this.isBig = false,
+      required this.iconColor});
 
   final IconData icon;
   final Color bgColor;
+  final Color iconColor;
   final void Function()? onTap;
   final bool isBig;
 
@@ -28,6 +30,7 @@ class ButtonTime extends StatelessWidget {
           child: Icon(
             icon,
             size: isBig ? 50 : 30,
+            color: iconColor,
           ),
         ),
       ),

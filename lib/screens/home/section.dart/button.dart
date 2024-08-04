@@ -8,8 +8,6 @@ class _PomoButton extends StatefulWidget {
 }
 
 class _PomoButtonState extends State<_PomoButton> {
-  bool isDark = false;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PomotimerBloc, PomotimerState>(
@@ -47,16 +45,6 @@ class _PomoButtonState extends State<_PomoButton> {
           }
         }
 
-        Color colorButton() {
-          if (state.mode == PomoMode.focus) {
-            return Colors.red.withOpacity(.5);
-          } else if (state.mode == PomoMode.longBreak) {
-            return Colors.blue.withOpacity(.5);
-          } else {
-            return Colors.green.withOpacity(.5);
-          }
-        }
-
         Color colorMode() {
           if (state.mode == PomoMode.focus) {
             return Colors.red.withOpacity(.2);
@@ -67,33 +55,40 @@ class _PomoButtonState extends State<_PomoButton> {
           }
         }
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ButtonTime(
-              icon: Icons.more_horiz_rounded,
-              bgColor: colorMode(),
-              onTap: () {
-                openSetting();
-              },
-            ),
-            const SizedBox(width: 20),
-            ButtonTime(
-                isBig: true,
-                icon: timerIcon(),
-                bgColor: colorButton(),
-                onTap: () {
-                  timerEvent();
-                }),
-            const SizedBox(width: 20),
-            ButtonTime(
-              icon: Icons.fast_forward_rounded,
-              bgColor: colorMode(),
-              onTap: () {
-                context.read<PomotimerBloc>().add(ChangeMode());
-              },
-            ),
-          ],
+        return BlocBuilder<ThemeBloc, bool>(
+          builder: (context, isDark) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ButtonTime(
+                  iconColor: isDark ? state.lightBg : state.textDark,
+                  icon: Icons.more_horiz_rounded,
+                  bgColor: colorMode(),
+                  onTap: () {
+                    openSetting();
+                  },
+                ),
+                const SizedBox(width: 20),
+                ButtonTime(
+                    iconColor: isDark ? state.lightBg : state.textDark,
+                    isBig: true,
+                    icon: timerIcon(),
+                    bgColor: state.bgPlay,
+                    onTap: () {
+                      timerEvent();
+                    }),
+                const SizedBox(width: 20),
+                ButtonTime(
+                  iconColor: isDark ? state.lightBg : state.textDark,
+                  icon: Icons.fast_forward_rounded,
+                  bgColor: colorMode(),
+                  onTap: () {
+                    context.read<PomotimerBloc>().add(ChangeMode());
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );

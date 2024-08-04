@@ -39,6 +39,46 @@ class PomotimerState extends Equatable {
     );
   }
 
+  Color get darkBg {
+    if (mode == PomoMode.focus) {
+      return const Color(0XFF0D0404);
+    } else if (mode == PomoMode.shortBreak) {
+      return const Color(0XFF040D06);
+    } else {
+      return const Color(0XFF04090D);
+    }
+  }
+
+  Color get textDark {
+    if (mode == PomoMode.focus) {
+      return const Color(0XFF471515);
+    } else if (mode == PomoMode.shortBreak) {
+      return const Color(0XFF14401D);
+    } else {
+      return const Color(0XFF153047);
+    }
+  }
+
+  Color get bgPlay {
+    if (mode == PomoMode.focus) {
+      return Colors.red.withOpacity(.5);
+    } else if (mode == PomoMode.longBreak) {
+      return Colors.blue.withOpacity(.5);
+    } else {
+      return Colors.green.withOpacity(.5);
+    }
+  }
+
+  Color get lightBg {
+    if (mode == PomoMode.focus) {
+      return const Color(0XFFFFF2F2);
+    } else if (mode == PomoMode.shortBreak) {
+      return const Color(0XFFF2FFF5);
+    } else {
+      return const Color(0XFFF2F9FF);
+    }
+  }
+
   @override
   List<Object?> get props =>
       [status, mode, focusTime, shortBreakTime, longBreakTime];

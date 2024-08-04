@@ -27,19 +27,28 @@ class _PomoMode extends StatelessWidget {
           }
         }
 
-        return Container(
-          width: MediaQuery.of(context).size.width / 1 / 2,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(99),
-              color: colorMode(),
-              border: Border.all(color: Colors.grey, width: 2)),
-          child: Center(
-            child: Text(
-              titleMode(),
-              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-            ),
-          ),
+        return BlocBuilder<ThemeBloc, bool>(
+          builder: (context, isDark) {
+            return Container(
+              width: MediaQuery.of(context).size.width / 1 / 2,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(99),
+                  color: colorMode(),
+                  border: Border.all(
+                      color: isDark ? state.lightBg : state.textDark,
+                      width: 2)),
+              child: Center(
+                child: Text(
+                  titleMode(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                      color: isDark ? state.lightBg : state.textDark),
+                ),
+              ),
+            );
+          },
         );
       },
     );

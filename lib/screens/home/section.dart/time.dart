@@ -23,10 +23,17 @@ class _PomoTime extends StatelessWidget {
           }
         }
 
-        return Text(
-          time(),
-          style: const TextStyle(
-              fontWeight: FontWeight.w800, fontSize: 250, height: .9),
+        return BlocBuilder<ThemeBloc, bool>(
+          builder: (context, isDark) {
+            return Text(
+              time(),
+              style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 250,
+                  height: .9,
+                  color: isDark ? state.lightBg : state.textDark),
+            );
+          },
         );
       },
     );
