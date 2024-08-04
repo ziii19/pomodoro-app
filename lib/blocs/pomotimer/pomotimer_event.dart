@@ -28,3 +28,13 @@ class UpdateTime extends PomotimerEvent {
   @override
   List<Object?> get props => [focusTime, shortBreakTime, longBreakTime];
 }
+
+class SaveisAudioOn extends PomotimerEvent {
+  final bool isAudioOn;
+
+  const SaveisAudioOn({required this.isAudioOn});
+  @override
+  List<Object?> get props => [isAudioOn];
+}
+
+class LoadisAudioOn extends PomotimerEvent {}

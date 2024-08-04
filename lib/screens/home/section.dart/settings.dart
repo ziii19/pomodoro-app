@@ -101,16 +101,11 @@ class _SettingsMenuState extends State<SettingsMenu> {
                       ),
                       SwitchTile(
                         title: 'Sound',
-                        initialValue: false,
+                        initialValue: state.isAudioOn,
                         onChanged: (value) {
-                          // Logic to change sound setting
-                        },
-                      ),
-                      SwitchTile(
-                        title: 'Notifications',
-                        initialValue: false,
-                        onChanged: (value) {
-                          // Logic to change notifications setting
+                          context
+                              .read<PomotimerBloc>()
+                              .add(SaveisAudioOn(isAudioOn: value));
                         },
                       ),
                     ],

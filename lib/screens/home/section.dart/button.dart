@@ -27,7 +27,9 @@ class _PomoButtonState extends State<_PomoButton> {
                   .read<PomotimerBloc>()
                   .add(StartTimer(time: state.longBreakTime));
             }
-            await AudioPlayer().play(AssetSource('sounds/start.m4a'));
+            if (state.isAudioOn == true) {
+              await AudioPlayer().play(AssetSource('sounds/start.m4a'));
+            }
           } else if (state.status == Status.completed) {
             context.read<PomotimerBloc>().add(ResetTimer());
           } else {

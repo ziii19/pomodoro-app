@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
 
     return BlocListener<PomotimerBloc, PomotimerState>(
       listener: (context, state) async {
-        if (state.status == Status.completed) {
+        if (state.status == Status.completed && state.isAudioOn == true) {
           await player.play(AssetSource('sounds/end.m4a'));
         }
       },

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/timer/timer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'pomotimer_event.dart';
 part 'pomotimer_state.dart';
@@ -66,6 +67,18 @@ class PomotimerBloc extends Bloc<PomotimerEvent, PomotimerState> {
         shortBreakTime: event.shortBreakTime,
         longBreakTime: event.longBreakTime,
       ));
+    });
+
+    on<SaveisAudioOn>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isAudioOn', event.isAudioOn);
+      emit(state.copywith(isAudioOn: event.isAudioOn));
+    });
+
+    on<LoadisAudioOn>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isAudioOn = prefs.getBool('isAudioOn') ?? false;
+      emit(state.copywith(isAudioOn: isAudioOn));
     });
   }
 }

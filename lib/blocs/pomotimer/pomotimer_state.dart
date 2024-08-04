@@ -11,6 +11,7 @@ class PomotimerState extends Equatable {
     this.focusTime = 1500,
     this.shortBreakTime = 300,
     this.longBreakTime = 900,
+    this.isAudioOn = false,
   });
 
   final Status status;
@@ -18,6 +19,7 @@ class PomotimerState extends Equatable {
   final int focusTime;
   final int shortBreakTime;
   final int longBreakTime;
+  final bool isAudioOn;
 
   factory PomotimerState.initial() {
     return const PomotimerState();
@@ -29,6 +31,7 @@ class PomotimerState extends Equatable {
     int? focusTime,
     int? shortBreakTime,
     int? longBreakTime,
+    bool? isAudioOn,
   }) {
     return PomotimerState(
       status: status ?? this.status,
@@ -36,6 +39,7 @@ class PomotimerState extends Equatable {
       focusTime: focusTime ?? this.focusTime,
       shortBreakTime: shortBreakTime ?? this.shortBreakTime,
       longBreakTime: longBreakTime ?? this.longBreakTime,
+      isAudioOn: isAudioOn ?? this.isAudioOn,
     );
   }
 
@@ -81,5 +85,5 @@ class PomotimerState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [status, mode, focusTime, shortBreakTime, longBreakTime];
+      [status, mode, focusTime, shortBreakTime, longBreakTime, isAudioOn];
 }
