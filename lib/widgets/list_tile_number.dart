@@ -41,6 +41,11 @@ class CustomNumberInputTileState extends State<CustomNumberInputTile> {
         _controller.text = _currentValue.toString();
         widget.onChanged(_currentValue);
       });
+    } else {
+      _showAlertDialog(
+        "Value Exceeded",
+        "The value cannot be greater than ${widget.maxValue}.",
+      );
     }
   }
 
@@ -51,19 +56,57 @@ class CustomNumberInputTileState extends State<CustomNumberInputTile> {
         _controller.text = _currentValue.toString();
         widget.onChanged(_currentValue);
       });
+    } else {
+      _showAlertDialog(
+        "Value Too Low",
+        "The value cannot be less than ${widget.minValue}.",
+      );
     }
   }
 
   void _onValueChanged(String value) {
     final int? newValue = int.tryParse(value);
-    if (newValue != null &&
-        newValue >= widget.minValue &&
-        newValue <= widget.maxValue) {
+    if (newValue == null) {
+      _showAlertDialog(
+        "Invalid Input",
+        "Please enter a valid integer.",
+      );
+    } else if (newValue < widget.minValue) {
+      _showAlertDialog(
+        "Value Too Low",
+        "The value cannot be less than ${widget.minValue}.",
+      );
+    } else if (newValue > widget.maxValue) {
+      _showAlertDialog(
+        "Value Exceeded",
+        "The value cannot be greater than ${widget.maxValue}.",
+      );
+    } else {
       setState(() {
         _currentValue = newValue;
         widget.onChanged(_currentValue);
       });
     }
+  }
+
+  void _showAlertDialog(String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -82,8 +125,9 @@ class CustomNumberInputTileState extends State<CustomNumberInputTile> {
                 width: 100,
                 height: 40,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(width: 1, color: Colors.grey)),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(width: 1, color: Colors.grey),
+                ),
                 child: Row(
                   children: [
                     Expanded(
@@ -93,29 +137,33 @@ class CustomNumberInputTileState extends State<CustomNumberInputTile> {
                         onChanged: _onValueChanged,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.only(bottom: 10)),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(bottom: 10),
+                        ),
                       ),
                     ),
                     Container(
                       width: 30,
                       decoration: const BoxDecoration(
-                          border: Border(
-                              left: BorderSide(width: 1, color: Colors.grey))),
+                        border: Border(
+                          left: BorderSide(width: 1, color: Colors.grey),
+                        ),
+                      ),
                       child: Column(
                         children: [
                           GestureDetector(
-                              onTap: _increment,
-                              child: const Icon(Icons.arrow_drop_up, size: 18)),
+                            onTap: _increment,
+                            child: const Icon(Icons.arrow_drop_up, size: 18),
+                          ),
                           Container(
                             width: double.infinity,
                             height: 1,
                             color: Colors.grey,
                           ),
                           GestureDetector(
-                              onTap: _decrement,
-                              child:
-                                  const Icon(Icons.arrow_drop_down, size: 18)),
+                            onTap: _decrement,
+                            child: const Icon(Icons.arrow_drop_down, size: 18),
+                          ),
                         ],
                       ),
                     ),
